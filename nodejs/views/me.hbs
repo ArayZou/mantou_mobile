@@ -1,0 +1,153 @@
+<div class="webbody clearfix">
+    {{> menuBar }}
+    <div class="mtcontent" id="mt-container">
+        <div id="me-page" class="me-page">
+            <div class="img-name">
+                <span class="me-img">
+                    {{#if user.img}}
+                        <img src="{{user.img}}">
+                    {{else}}
+                        <img src="/img/groupimg.png">
+                    {{/if}}
+                </span>
+                <label>{{user.name}}</label>
+            </div>
+            <div id="me-tabs" class="tabs">
+                <ul class="nav nav-tabs" id="nav-tabs">
+                    <li class="my-col">
+                        <a>我的收藏</a>
+                    </li>
+                    <li class="my-pub">
+                        <a>我的发布</a>
+                    </li>
+                    <button id="me-setting" class="setting btn">
+                        <i class="fa fa-cog"></i>
+                        个人设置
+                    </button>
+                </ul>
+                <div id="tab-content" class="content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/x-handlebars" id="my-collect-tpl">
+    <div class="content">
+        \{{#if collections}}
+            show collections
+        \{{^}}
+            没有收藏～
+        \{{/if}}
+    </div>
+</script>
+<script type="text/x-handlebars" id="my-pub-tpl">
+    <div class="content">
+        \{{#if pubs}}
+            show pubs
+        \{{^}}
+            没有发布过帖子～
+        \{{/if}}
+    </div>
+</script>
+<script type="text/x-handlebars" id="setting-panel-tpl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span id="close-setting">&times</span>
+        </div>
+        <div class="panel-body">
+            <div id="setting-tabs" class="tabs">
+                <ul class="nav nav-tabs">
+                    <li class="set-photo">
+                        <a>我的头像</a>
+                    </li>
+                    <li class="set-info">
+                        <a>个人资料</a>
+                    </li>
+                    <li class="set-psw">
+                        <a>修改密码</a>
+                    </li>
+                </ul>
+                <div id="setting-tab-content" class="content"></div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/x-handlebars" id="set-photo-tpl">
+    <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>上传</span>
+        <input id="fileupload" type="file" name="files[]" multiple="">
+    </span>
+    <div class="clearfix">
+        <div class="cropper" style="width: 300px; height:300px; border: 1px solid #ddd; overflow:hidden; float: left; margin:0 50px 0 0;">
+            <img style="max-width: 300px; max-height: 300px; " src="">
+        </div>
+        <div class="cropper_preview" style="width: 150px; height:150px; overflow:hidden;float: left;"></div>
+    </div>
+    <a href="javascript:;" id="userimg_submit" class="btn btn-success">保存</a>
+</script>
+<script type="text/x-handlebars" id="set-info-tpl">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="user-real-name" class="col-sm-2 controle-label">姓名</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="user-real-name" value="{{user.realname}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user-weibo" class="col-sm-2 controle-label">微博</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="user-weibo" value="{{user.weibo}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user-qq" class="col-sm-2 controle-label">QQ</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="user-qq" value="{{user.qq}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user-sign" class="col-sm-2 controle-label">个性签名</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="user-sign">{{user.sign}}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="info-button" class="btn btn-default">确定</button>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/x-handlebars" id="set-psw-tpl">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="old-pwd" class="col-sm-2 controle-label">
+                旧密码
+            </label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="old-pwd">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="new-pwd" class="col-sm-2 controle-label">
+                新密码
+            </label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="new-pwd">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="new-pwd-confirm" class="col-sm-2 controle-label">
+                再次输入
+            </label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="old-pwd-confirm">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="repwd-button" class="btn btn-default">确定</button>
+            </div>
+        </div>
+    </div>
+</script>

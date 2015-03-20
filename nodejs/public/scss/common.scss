@@ -1,0 +1,201 @@
+// 附加reset
+ul{
+    padding:0;
+}
+li{
+    list-style: none;
+}
+*{
+    outline: 0;
+}
+h1,h2,h3,h4,h5,h6,p{
+    margin:0;
+}
+// 附加reset end
+
+// 全局样式
+html,
+body,
+.webbody{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+body {
+    font: 12px/18px Arial,'Droid Sans','Microsoft YaHei','Hiragino Sans GB',STXihei,'simsun','sans-serif';
+    color: #333;
+}
+a {
+    color: #00B7FF;
+}
+.webbody{
+    padding:0 0 0 200px;
+}
+.groupcontent{
+    float: left;
+    width: 100%;
+    height: 100%;
+    padding:0 0 0 340px;
+}
+.mtcontent,
+.groupbody{
+    float: left;
+    padding:20px 0 0 20px;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #f2f2f2;
+}
+.home_title{
+    margin:0 0 15px;
+    font-size: 34px;
+    line-height: 40px;
+}
+// 全局样式 end
+
+// 上传按钮
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+// 上传按钮 end
+
+// blocklist
+.blocklist{
+    margin-right: -20px;
+    .mtimg_block{
+        float: left;
+        width: 320px;
+        height: 240px;
+        overflow: hidden;
+        margin:0 20px 20px 0;
+        position: relative;
+        border-radius: 8px;
+        .block_img{
+            display: block;
+            width: 320px;
+            height: 240px;
+        }
+        .block_text{
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding:30px 30px 0;
+            width: 100%;
+            height: 100%;
+            box-sizing:border-box;
+            background: rgba(0,0,0,0.3);
+            .block_title{
+                font-size: 28px;
+                color: #fff;
+                line-height: 34px;
+                overflow: hidden;
+                display: block;
+                margin-bottom: 10px;
+            }
+            .block_info{
+                font-size: 20px;
+                color: #fff;
+                line-height: 24px;
+                height: 96px;
+                overflow: hidden;
+                display: block;
+            }
+        }
+        &:hover{
+            .block_text{
+                background: rgba(0,0,0,0.1);
+            }
+        }
+    }
+}
+// blocklist end
+
+// mygrouplist
+.mygrouplist{
+    margin-right: -20px;
+    .groupblock{
+        float: left;
+        width: 244px;
+        height: 64px;
+        padding: 0 0 0 64px;
+        border-radius: 4px;
+        background: #fff;
+        margin:0 20px 20px 0;
+        img{
+            float: left;
+            width: 64px;
+            height: 64px;
+            margin-left: -64px;
+            border-radius: 4px 0 0 4px;
+        }
+        .title{
+            display: block;
+            padding: 10px 10px 0;
+            line-height: 24px;
+            font-size: 14px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .intro{
+            display: block;
+            line-height: 20px;
+            font-size: 12px;
+            padding: 0 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            color: #999;
+        }
+        &:hover{
+            text-decoration: none;
+        }
+    }
+    .group_edit{
+        cursor: pointer;
+        float: left;
+        width: 244px;
+        height: 64px;
+        padding: 0 0 0 64px;
+        border-radius: 4px;
+        margin:0 20px 20px 0;
+        i{
+            float: left;
+            width: 64px;
+            height: 64px;
+            margin-left: -64px;
+            border-radius: 4px 0 0 4px;
+        }
+        .icon_findgroup{
+            background: url(/img/icon_findgroup.png) center no-repeat;
+        }
+        .icon_addgroup{
+            background: url(/img/icon_addgroup.png) center no-repeat;
+        }
+        .title{
+            font-size: 20px;
+            display: block;
+            width: 100%;
+            height: 64px;
+            line-height: 64px;
+            text-indent: 10px;
+            color: #333;
+        }
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
+// mygrouplist end
