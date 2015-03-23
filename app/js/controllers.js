@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
-
-    .controller('DashCtrl', function ($scope) {
+angular.module('mt_h5')
+    .controller('HomeCtrl', function ($scope) {
+        console.log($scope);
     })
 
     .controller('ChatsCtrl', function ($scope, Chats) {

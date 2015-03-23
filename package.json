@@ -29,6 +29,7 @@
     "gulp": "^3.8.10",
     "gulp-concat": "^2.4.3",
     "gulp-develop-server": "^0.2.5",
+    "gulp-inject": "^1.2.0",
     "gulp-load-plugins": "^0.8.0",
     "gulp-minify-css": "^0.3.12",
     "gulp-plumber": "^0.6.6",

@@ -1,0 +1,10 @@
+{
+  "name": "mantou_mobile",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular-bindonce": "0.3.x",
+    "ionic": "driftyco/ionic-bower#master"
+  },
+  "devDependencies": {
+  }
+}

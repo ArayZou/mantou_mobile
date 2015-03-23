@@ -4,29 +4,28 @@ module.exports = function (gulp) {
 
     var browserSync = require('browser-sync');
 
-    function browserSyncInit(baseDir, files, browser) {
-        browser = browser === undefined ? 'default' : browser;
+    var inject = require('gulp-inject');
+    gulp.task('html-inject', function () {
+        return gulp.src('app/*.html')
+            .pipe(inject(gulp.src('app/js/**/*.js'), {
+                read: false,
+                ignorePath: 'app'
+            }))
+            .pipe(gulp.dest('.cache'));
+    });
 
-        browserSync.instance = browserSync.init(files, {
-            notify: false,
-            startPath: '/',
+    gulp.task('web', ['html-inject'] , function () {
+        browserSync({
             server: {
-                baseDir: baseDir
+                baseDir: [
+                    '.cache',
+                    'app'
+                ]
             },
-            browser: browser,
+            startPath: '/',
             port: 5000
         });
 
-    }
-
-    gulp.task('ionic', function () {
-        browserSyncInit([
-            'app'
-        ], [
-            'app/*.html',
-            'app/js/**/*.js',
-            'app/css/**/*.css',
-            'app/img/**/*'
-        ]);
+        gulp.watch("app/js/**/*.js");
     });
 };

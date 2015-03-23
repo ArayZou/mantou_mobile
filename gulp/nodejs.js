@@ -4,7 +4,7 @@ module.exports = function (gulp) {
         plugins = require('gulp-load-plugins')();
 
     // 启动
-    gulp.task('express', ['server', 'server:restart'], function () {
+    gulp.task('server', ['server', 'server:restart'], function () {
         console.log('express server start');
     });
     // start express server
