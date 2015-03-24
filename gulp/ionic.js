@@ -3,6 +3,8 @@
 module.exports = function (gulp) {
 
     var browserSync = require('browser-sync');
+    var sass        = require('gulp-sass');
+    var reload      = browserSync.reload;
 
     var inject = require('gulp-inject');
     gulp.task('html-inject', function () {
@@ -11,10 +13,11 @@ module.exports = function (gulp) {
                 read: false,
                 ignorePath: 'app'
             }))
-            .pipe(gulp.dest('.cache'));
+            .pipe(gulp.dest('.cache'))
+            .pipe(reload({stream: true}));
     });
 
-    gulp.task('web', ['html-inject'] , function () {
+    gulp.task('web', ['html-inject','sass'] , function () {
         browserSync({
             server: {
                 baseDir: [
@@ -23,9 +26,18 @@ module.exports = function (gulp) {
                 ]
             },
             startPath: '/',
-            port: 5000
+            port: 5000,
+            open:false
         });
 
-        gulp.watch("app/js/**/*.js");
+        gulp.watch('app/scss/*.scss', ['sass']);
+        gulp.watch(['app/js/**/*.js','app/**/*.html'],['html-inject']);
+    });
+
+    gulp.task('sass', function() {
+        return gulp.src(['app/scss/*.scss'])
+            .pipe(sass())
+            .pipe(gulp.dest("app/css"))
+            .pipe(reload({stream: true}));
     });
 };
