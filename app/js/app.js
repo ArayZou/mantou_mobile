@@ -77,12 +77,12 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
                 }
             })
 
-            .state('mantou.me', {
-                url: '/me',
+            .state('mantou.user', {
+                url: '/user',
                 views: {
-                    'mantou-me': {
-                        templateUrl: 'js/pages/me/me.html',
-                        controller: 'MeCtrl'
+                    'mantou-user': {
+                        templateUrl: 'js/pages/user/user.html',
+                        controller: 'UserCtrl'
                     }
                 }
             });
