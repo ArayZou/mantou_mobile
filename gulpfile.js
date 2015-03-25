@@ -2,5 +2,4 @@
 
 var gulp = require('gulp');
 
-require('./gulp/nodejs.js')(gulp);
-require('./gulp/ionic.js')(gulp);
+require('./gulp/server.js')(gulp);

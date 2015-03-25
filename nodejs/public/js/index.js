@@ -1,4 +1,0 @@
-require(['bootstrap'],function(bootstrap){
-
-});
-

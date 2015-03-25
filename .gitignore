@@ -159,8 +159,8 @@ $RECYCLE.BIN/
 .DS_Store
 /node_modules
 
+
+
 .idea
-.cache
 
-
-app/libs
+app/views/libs
