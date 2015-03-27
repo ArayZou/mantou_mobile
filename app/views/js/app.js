@@ -38,6 +38,16 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
 
             // Each tab has its own nav history stack:
 
+            .state('mantou.welcome', {
+                url: '/welcome',
+                views: {
+                    'mantou-welcome': {
+                        templateUrl: 'views/js/pages/welcome/welcome.html',
+                        controller: 'WelcomeCtrl'
+                    }
+                }
+            })
+
             .state('mantou.home', {
                 url: '/home',
                 views: {
@@ -90,5 +100,7 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/mantou/home');
 
+
     });
+
 

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    jwt = require('jsonwebtoken'),
     _ = require('underscore'),
     User,
     Group;
@@ -16,7 +17,7 @@ exports.signup = function(req, res) {
         }
 
         if (user.length > 0) {
-            return res.redirect('/');
+            return res.send(401);
         } else {
             user = new User({
                 name: req_body.name,
@@ -28,8 +29,7 @@ exports.signup = function(req, res) {
                 if (err) {
                     console.log(err);
                 }
-                req.session.user = user;
-                res.redirect('/home');
+                return res.send(200);
             });
         }
     });
@@ -38,14 +38,14 @@ exports.signup = function(req, res) {
 //登录
 exports.login = function(req, res) {
     var req_body = req.body,
-        name = req_body.name,
+        name = req_body.username,
         pwd = req_body.password;
     User.findOne({name: name}, function(err, user) {
         if (err) {
             console.log(err);
         }
         if (!user) {
-            return res.redirect('/');
+            return res.send(401);
         }
 
         user.pwdMatch(pwd, function(err, isMatch) {
@@ -53,24 +53,12 @@ exports.login = function(req, res) {
                 console.log(err);
             }
 
-            if (isMatch) {
-                req.session.user = user;
-                // 关注群组缓存
-                req.session.group = [];
-
-                var followgroupId = [];
-                for(var i = 0;i<req.session.user.followgroup.length;i++){
-                    followgroupId.push(req.session.user.followgroup[i]);
-                }
-                Group.find({_id:{$in:followgroupId}},function(err,group){
-                    if(err){
-                        console.log(err)
-                    }
-                    req.session.group = group;
-                    return res.redirect('/home');
-                })
-
+            if (!isMatch) {
+                return res.send(402);
             }
+
+            var token = jwt.sign(user, 'mantoumobile', { expiresInMinutes: 60 });
+            return res.json({token:token});
         });
     });
 };
@@ -103,7 +91,7 @@ exports.repwd = function(req, res) {
                             }
                             req.session.user = _user;
                             res.send({
-                                success: true,
+                                success: true
                             });
                         });
                     } else {

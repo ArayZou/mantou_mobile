@@ -12,7 +12,7 @@ module.exports = function (gulp) {
                 read: false,
                 ignorePath: 'app'
             }))
-            .pipe(gulp.dest('app'))
+            .pipe(gulp.dest('app/public'))
     });
 
     gulp.task('app', ['html-inject','sass','nodemon'] , function () {

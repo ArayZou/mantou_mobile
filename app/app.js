@@ -1,8 +1,8 @@
 var express = require('express'),
     path = require('path'),
     mongoose = require('mongoose'),
-    session = require('express-session'),
-    mongoStore = require('connect-mongo')(session),
+    //session = require('express-session'),
+    //mongoStore = require('connect-mongo')(session),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
@@ -22,8 +22,9 @@ mongoose.connect(mongoUrl, function(err) {
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'public'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 // hbs partials
 // use: {{> footer }}
@@ -32,6 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/')));
 
@@ -39,13 +41,6 @@ app.use(express.static(path.join(__dirname, '/')));
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/views/favicon.ico'));
 
-app.use(session({
-    secret: 'mantou_mobile',
-    store: new mongoStore({
-        url: mongoUrl,
-        collections: 'sessions'
-    })
-}));
 
 //router
 require('./router')(app);
@@ -73,13 +68,13 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
+//app.use(function(err, req, res, next) {
+//    res.status(err.status || 500);
+//    res.render('error', {
+//        message: err.message,
+//        error: {}
+//    });
+//});
 
 module.exports = app;
 

@@ -7,5 +7,7 @@ Post = mongoose.model('Post');
 Group = mongoose.model('Group');
 //index页
 exports.index = function(req, res){
-    res.sendfile('index.html');
+    console.log(req.user.admin+'11111111111111111111111');
+    if (!req.user.admin) return res.send(401);
+    res.render('index');
 };

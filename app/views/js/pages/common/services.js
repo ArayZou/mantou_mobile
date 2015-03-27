@@ -1,50 +1,39 @@
-angular.module('mt_h5')
+angular.module('mt_h5').factory('AuthenticationService', function() {
+    var auth = {
+        isLogged: false
+    }
 
-    .factory('Chats', function () {
-        // Might use a resource here that returns a JSON array
+    return auth;
+});
 
-        // Some fake testing data
-        var chats = [{
-            id: 0,
-            name: 'Ben Sparrow',
-            lastText: 'You on your way?',
-            face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-        }, {
-            id: 1,
-            name: 'Max Lynx',
-            lastText: 'Hey, it\'s me',
-            face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-        }, {
-            id: 2,
-            name: 'Andrew Jostlin',
-            lastText: 'Did you get the ice cream?',
-            face: 'https://pbs.twimg.com/profile_images/491274378181488640/Tti0fFVJ.jpeg'
-        }, {
-            id: 3,
-            name: 'Adam Bradleyson',
-            lastText: 'I should buy a boat',
-            face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-        }, {
-            id: 4,
-            name: 'Perry Governor',
-            lastText: 'Look at my mukluks!',
-            face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
-        }];
+angular.module('mt_h5').factory('UserService', function($http) {
+    return {
+        logIn: function(username, password) {
+            return $http.post('http://localhost:3000/api/userLogin', {username: username, password: password});
+        },
 
-        return {
-            all: function () {
-                return chats;
-            },
-            remove: function (chat) {
-                chats.splice(chats.indexOf(chat), 1);
-            },
-            get: function (chatId) {
-                for (var i = 0; i < chats.length; i++) {
-                    if (chats[i].id === parseInt(chatId)) {
-                        return chats[i];
-                    }
-                }
-                return null;
+        logOut: function() {
+
+        }
+    }
+});
+
+angular.module('mt_h5').factory('TokenInterceptor', function ($q, $window, AuthenticationService) {
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+            if ($window.sessionStorage.token) {
+                config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
             }
-        };
-    });
+            return config;
+        },
+
+        response: function (response) {
+            return response || $q.when(response);
+        }
+    };
+});
+
+angular.module('mt_h5').config(function ($httpProvider) {
+    $httpProvider.interceptors.push('TokenInterceptor');
+});

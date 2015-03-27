@@ -1,4 +1,5 @@
-var site = require('./controllers/site'),
+var expressjwt = require('express-jwt');
+    site = require('./controllers/site'),
     user = require('./controllers/user'),
     me = require('./controllers/me'),
     msg = require('./controllers/msg'),
@@ -10,13 +11,21 @@ var site = require('./controllers/site'),
     json = require('./controllers/json');
 
 module.exports = function(app) {
-    //pre handler user
-    app.use(function(req, res, next) {
-        app.locals.user = req.session.user;
-        app.locals.group = req.session.group;
+
+    app.get('/', function(req, res){
+        res.sendFile('/public/index.html');
+    });
+    app.get('*', site.index);
+
+    app.all('*', function(req, res, next) {
+        res.set('Access-Control-Allow-Origin', 'http://localhost:5000');
+        res.set('Access-Control-Allow-Credentials', true);
+        res.set('Access-Control-Allow-Methods', 'GET,POST, DELETE, PUT');
+        res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
+        if ('OPTIONS' == req.method) return res.send(200);
         next();
     });
 
-    app.get('/', site.index);
-    app.get('*', site.index);
+    app.post('/api/userSign',user.signup);
+    app.post('/api/userLogin',user.login);
 };
