@@ -1,4 +1,5 @@
 var expressjwt = require('express-jwt');
+    path = require('path'),
     site = require('./controllers/site'),
     user = require('./controllers/user'),
     me = require('./controllers/me'),
@@ -13,9 +14,11 @@ var expressjwt = require('express-jwt');
 module.exports = function(app) {
 
     app.get('/', function(req, res){
-        res.sendFile('/public/index.html');
+        res.sendFile(path.join(__dirname + '/public/index.html'));
     });
-    app.get('*', site.index);
+    app.get('*', function(req, res){
+        res.sendFile(path.join(__dirname + '/public/index.html'));
+    });
 
     app.all('*', function(req, res, next) {
         res.set('Access-Control-Allow-Origin', 'http://localhost:5000');
