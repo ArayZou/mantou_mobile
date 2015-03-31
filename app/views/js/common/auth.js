@@ -1,6 +1,10 @@
-angular.module('mt_h5').factory('AuthenticationService', function() {
+angular.module('mt_h5').factory('AuthenticationService', function($window) {
     var auth = {
         isLogged: false
+    };
+
+    if ($window.sessionStorage.token) {
+        auth.isLogged = true;
     }
 
     return auth;
@@ -18,7 +22,7 @@ angular.module('mt_h5').factory('UserService', function($http) {
     }
 });
 
-angular.module('mt_h5').factory('TokenInterceptor', function ($q, $window, AuthenticationService) {
+angular.module('mt_h5').factory('TokenInterceptor', function ($q, $window) {
     return {
         request: function (config) {
             config.headers = config.headers || {};

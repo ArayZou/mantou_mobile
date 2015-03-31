@@ -28,14 +28,13 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
                 templateUrl: "views/js/pages/mantou.html"
             })
 
-            // Each tab has its own nav history stack:
-
             .state('welcome', {
                 url: '/welcome',
                 abstract: true,
                 templateUrl: "views/js/pages/welcome.html"
             })
 
+            // Each tab has its own nav history stack:
             .state('welcome.welcome', {
                 url: '',
                 templateUrl: 'views/js/pages/welcome/welcome.html',
@@ -97,16 +96,12 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
 
     })
 
-    .run(function($rootScope, $urlRouter,$state,AuthenticationService) {
+    .run(function($rootScope, $urlRouter,$state,AuthenticationService,$window) {
         $rootScope.$on('$locationChangeStart', function(evt) {
             if(!AuthenticationService.isLogged){
                 evt.preventDefault();
-                console.log(1)
-                $state.go("welcome.welcome", null ,{
-                    location :'replace',
-                    inherit : true,
-                    notify : true
-                });
+                $window.location.href="#/welcome";
+                $state.go("welcome.welcome");
             }
         });
     });

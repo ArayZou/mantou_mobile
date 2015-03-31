@@ -1,6 +1,6 @@
-angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state) {
+angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state,$ionicPopup) {
     console.log(AuthenticationService.isLogged)
-    // ×¢²á
+    // ×¢ï¿½ï¿½
     $scope.SignIn = function SignIn(username, password) {
         if(username && password){
             $http({
@@ -16,7 +16,7 @@ angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $wi
             });
         }
     };
-    // µÇÂ½
+    // ï¿½ï¿½Â½
     $scope.logIn = function logIn(username, password) {
         if (username !== undefined && password !== undefined) {
 
@@ -27,7 +27,9 @@ angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $wi
                     console.log($window.sessionStorage.token)
                     $state.go("mantou.home");
                 }else{
-                    $window.alert('ÃÜÂë´íÎó');
+                    $ionicPopup.alert({
+                        title: 'ç™»é™†'
+                    });
                 }
             }).error(function(status, data) {
                 console.log(status);

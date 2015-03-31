@@ -6,12 +6,7 @@ angular.module('mt_h5')
             if (AuthenticationService.isLogged) {
                 AuthenticationService.isLogged = false;
                 delete $window.sessionStorage.token;
-                $state.go("welcome.welcome",{},{
-                    location :'replace',
-                    inherit : true,
-                    notify : true,
-                    reload: true
-                });
+                $state.go("welcome.welcome");
             }
         };
     });
