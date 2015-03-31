@@ -1,4 +1,3 @@
-angular.module('mt_h5')
+angular.module('mt_h5').controller('HomeCtrl', function($scope) {
 
-    .controller('HomeCtrl', function($scope) {
-    });
+});

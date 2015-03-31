@@ -17,7 +17,9 @@
 
     <!-- inject:js -->
     <script src="/views/js/app.js"></script>
-    <script src="/views/js/pages/common/services.js"></script>
+    <script src="/views/js/common/auth.js"></script>
+    <script src="/views/js/common/services.js"></script>
+    <script src="/views/js/directive/tabs/bottomTabsCtrl.js"></script>
     <script src="/views/js/pages/find/findCtrl.js"></script>
     <script src="/views/js/pages/group/groupCtrl.js"></script>
     <script src="/views/js/pages/home/homeCtrl.js"></script>
@@ -30,10 +32,6 @@
 <!--
   The nav bar that will be updated as we navigate between views.
 -->
-<ion-nav-bar class="bar-positive">
-    <ion-nav-back-button>
-    </ion-nav-back-button>
-</ion-nav-bar>
 <!--
   The views will be rendered in the <ion-nav-view> directive below
   Templates are in the /templates folder (but you could also

@@ -1,10 +1,4 @@
 // Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
 angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
 
     //.run(function($ionicPlatform) {
@@ -25,8 +19,6 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router
-        // Set up the various states which the app can be in.
-        // Each state's controller can be found in controllers.js
         $stateProvider
 
             // setup an abstract state for the tabs directive
@@ -38,14 +30,16 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
 
             // Each tab has its own nav history stack:
 
-            .state('mantou.welcome', {
+            .state('welcome', {
                 url: '/welcome',
-                views: {
-                    'mantou-welcome': {
-                        templateUrl: 'views/js/pages/welcome/welcome.html',
-                        controller: 'WelcomeCtrl'
-                    }
-                }
+                abstract: true,
+                templateUrl: "views/js/pages/welcome.html"
+            })
+
+            .state('welcome.welcome', {
+                url: '',
+                templateUrl: 'views/js/pages/welcome/welcome.html',
+                controller: 'WelcomeCtrl'
             })
 
             .state('mantou.home', {
@@ -101,6 +95,20 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
         $urlRouterProvider.otherwise('/mantou/home');
 
 
+    })
+
+    .run(function($rootScope, $urlRouter,$state,AuthenticationService) {
+        $rootScope.$on('$locationChangeStart', function(evt) {
+            if(!AuthenticationService.isLogged){
+                evt.preventDefault();
+                console.log(1)
+                $state.go("welcome.welcome", null ,{
+                    location :'replace',
+                    inherit : true,
+                    notify : true
+                });
+            }
+        });
     });
 
 
