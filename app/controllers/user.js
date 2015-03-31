@@ -17,7 +17,10 @@ exports.signup = function(req, res) {
         }
 
         if (user.length > 0) {
-            return res.send(401);
+            return res.send({
+                status:401,
+                error:"用户已存在"
+            });
         } else {
             user = new User({
                 name: req_body.name,
@@ -29,7 +32,10 @@ exports.signup = function(req, res) {
                 if (err) {
                     console.log(err);
                 }
-                return res.send(200);
+                return res.send({
+                    status:200,
+                    error:""
+                });
             });
         }
     });
@@ -45,7 +51,10 @@ exports.login = function(req, res) {
             console.log(err);
         }
         if (!user) {
-            return res.send(401);
+            return res.send({
+                status:400,
+                error:"用户不存在"
+            });
         }
 
         user.pwdMatch(pwd, function(err, isMatch) {
@@ -54,19 +63,24 @@ exports.login = function(req, res) {
             }
 
             if (!isMatch) {
-                return res.send(402);
+                return res.send({
+                    status:401,
+                    error:"用户名密码不匹配"
+                });
             }
 
             var token = jwt.sign(user, 'mantoumobile', { expiresInMinutes: 60 });
-            return res.json({token:token});
+            return res.json({
+                status:200,
+                error:"",
+                token:token
+            });
         });
     });
 };
 
 //登出
 exports.logout = function(req, res) {
-    delete req.session.user;
-    req.session.group = [];
     res.redirect('/');
 };
 
