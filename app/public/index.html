@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mt_h5">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -20,24 +20,25 @@
     <script src="/views/js/common/auth.js"></script>
     <script src="/views/js/common/services.js"></script>
     <script src="/views/js/directive/tabs/bottomTabsCtrl.js"></script>
+    <script src="/views/js/pages/find/findCtrl.js"></script>
+    <script src="/views/js/pages/creatgroup/creatgroup.js"></script>
     <script src="/views/js/pages/group/groupCtrl.js"></script>
     <script src="/views/js/pages/home/homeCtrl.js"></script>
-    <script src="/views/js/pages/message/messageCtrl.js"></script>
-    <script src="/views/js/pages/find/findCtrl.js"></script>
+    <script src="/views/js/pages/index/IndexCtrl.js"></script>
     <script src="/views/js/pages/user/userCtrl.js"></script>
     <script src="/views/js/pages/welcome/welcome.js"></script>
+    <script src="/views/js/pages/message/messageCtrl.js"></script>
     <!-- endinject -->
 </head>
-<body ng-app="mt_h5">
-<!--
-  The nav bar that will be updated as we navigate between views.
--->
-<!--
-  The views will be rendered in the <ion-nav-view> directive below
-  Templates are in the /templates folder (but you could also
-  have templates inline in this html file if you'd like).
--->
-<ion-nav-view></ion-nav-view>
+<body animation="slide-left-right-ios7">
+
+    <ion-nav-bar class="bar-balanced nav-title-slide-ios7">
+        <ion-nav-back-button class="button-icon">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-nav-view></ion-nav-view>
 
 </body>
 </html>

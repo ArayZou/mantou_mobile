@@ -1,6 +1,6 @@
 angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state,$ionicPopup) {
     console.log(AuthenticationService.isLogged)
-    // ע��
+    // 注册
     $scope.SignIn = function SignIn(username, password) {
         if(username && password){
             $http({
@@ -16,7 +16,7 @@ angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $wi
             });
         }
     };
-    // ��½
+    // 登陆
     $scope.logIn = function logIn(username, password) {
         if (username !== undefined && password !== undefined) {
 
@@ -25,7 +25,7 @@ angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $wi
                     AuthenticationService.isLogged = true;
                     $window.sessionStorage.token = data.token;
                     console.log($window.sessionStorage.token)
-                    $state.go("mantou.home");
+                    $state.go("index");
                 }else{
                     $ionicPopup.alert({
                         title: '登陆'

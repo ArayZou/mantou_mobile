@@ -22,76 +22,80 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
         $stateProvider
 
             // setup an abstract state for the tabs directive
-            .state('mantou', {
+
+
+            .state('index', {
                 url: "/mantou",
-                abstract: true,
-                templateUrl: "views/js/pages/mantou.html"
+                templateUrl: "views/js/pages/index/index.html",
+                controller: 'IndexCtrl'
+            })
+
+            .state('creatgroup', {
+                url: '/mantou/creatgroup',
+                templateUrl: 'views/js/pages/creatgroup/creatgroup.html',
+                controller: 'CreatGroupCtrl'
             })
 
             .state('welcome', {
-                url: '/welcome',
-                abstract: true,
-                templateUrl: "views/js/pages/welcome.html"
-            })
-
-            // Each tab has its own nav history stack:
-            .state('welcome.welcome', {
-                url: '',
+                url: '/mantou/welcome',
                 templateUrl: 'views/js/pages/welcome/welcome.html',
                 controller: 'WelcomeCtrl'
             })
 
-            .state('mantou.home', {
-                url: '/home',
-                views: {
-                    'mantou-home': {
-                        templateUrl: 'views/js/pages/home/home.html',
-                        controller: 'HomeCtrl'
-                    }
-                }
-            })
 
-            .state('mantou.group', {
-                url: '/group',
-                views: {
-                    'mantou-group': {
-                        templateUrl: 'views/js/pages/group/group.html',
-                        controller: 'GroupCtrl'
-                    }
-                }
-            })
-            .state('mantou.find', {
-                url: '/find',
-                views: {
-                    'mantou-find': {
-                        templateUrl: 'views/js/pages/find/find.html',
-                        controller: 'FindCtrl'
-                    }
-                }
-            })
+            // Each tab has its own nav history stack:
 
-            .state('mantou.message', {
-                url: '/message',
-                views: {
-                    'mantou-message': {
-                        templateUrl: 'views/js/pages/message/message.html',
-                        controller: 'MessageCtrl'
-                    }
-                }
-            })
-
-            .state('mantou.user', {
-                url: '/user',
-                views: {
-                    'mantou-user': {
-                        templateUrl: 'views/js/pages/user/user.html',
-                        controller: 'UserCtrl'
-                    }
-                }
-            });
+            //.state('mantou.home', {
+            //    url: '/home',
+            //    views: {
+            //        'mantou-home': {
+            //            templateUrl: 'views/js/pages/home/home.html',
+            //            controller: 'HomeCtrl'
+            //        }
+            //    }
+            //})
+            //
+            //.state('mantou.group', {
+            //    url: '/group',
+            //    views: {
+            //        'mantou-group': {
+            //            templateUrl: 'views/js/pages/group/group.html',
+            //            controller: 'GroupCtrl'
+            //        }
+            //    }
+            //})
+            //.state('mantou.find', {
+            //    url: '/find',
+            //    views: {
+            //        'mantou-find': {
+            //            templateUrl: 'views/js/pages/find/find.html',
+            //            controller: 'FindCtrl'
+            //        }
+            //    }
+            //})
+            //
+            //.state('mantou.message', {
+            //    url: '/message',
+            //    views: {
+            //        'mantou-message': {
+            //            templateUrl: 'views/js/pages/message/message.html',
+            //            controller: 'MessageCtrl'
+            //        }
+            //    }
+            //})
+            //
+            //.state('mantou.user', {
+            //    url: '/user',
+            //    views: {
+            //        'mantou-user': {
+            //            templateUrl: 'views/js/pages/user/user.html',
+            //            controller: 'UserCtrl'
+            //        }
+            //    }
+            //})
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/mantou/home');
+        $urlRouterProvider.otherwise('/mantou');
 
 
     })
@@ -100,8 +104,8 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
         $rootScope.$on('$locationChangeStart', function(evt) {
             if(!AuthenticationService.isLogged){
                 evt.preventDefault();
-                $window.location.href="#/welcome";
-                $state.go("welcome.welcome");
+                $window.location.href="#/mantou/welcome";
+                $state.go("welcome");
             }
         });
     });
