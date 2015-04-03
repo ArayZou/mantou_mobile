@@ -15,7 +15,6 @@ angular.module('mt_h5').controller('IndexCtrl',function(
     console.log('ctrl')
     var locationChangeInit = function(){
         var locationObj = $location.search();
-        //console.log(locationObj.tab)
         switch(locationObj.tab){
             case 'home':
                 //console.log(1);
@@ -60,14 +59,12 @@ angular.module('mt_h5').controller('IndexCtrl',function(
     },1);
     $scope.$on('$locationChangeSuccess', function() {
         if(window.location.href.indexOf('/mantou/index')>-1){
-            console.log('changeSuccess')
             locationChangeInit();
         }
     });
 
     // group page
     $scope.showMoreGroup = function(){
-        // Show the action sheet
         var actionShowMoreGroup = $ionicActionSheet.show({
             buttons: [
                 { text: '关注新群组' },
@@ -75,7 +72,6 @@ angular.module('mt_h5').controller('IndexCtrl',function(
             ],
             cancelText: '取消',
             cancel: function() {
-                // add cancel code..
             },
             buttonClicked: function(index) {
                 switch(index){
@@ -89,16 +85,18 @@ angular.module('mt_h5').controller('IndexCtrl',function(
                 }
             }
         });
-    }
+    };
 
     // user page
-    $scope.logout = function logout() {
+    $scope.logout = function(){
         if (AuthenticationService.isLogged) {
             AuthenticationService.isLogged = false;
             delete $window.sessionStorage.token;
 
             $ionicHistory.nextViewOptions({
-                disableBack: true
+                disableAnimate: true,
+                disableBack: true,
+                historyRoot: true
             });
             $state.go("welcome");
         }

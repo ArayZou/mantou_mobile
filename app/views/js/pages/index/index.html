@@ -1,4 +1,4 @@
-<ion-view title="">
+<ion-view title="" hide-back-button="true">
     <ion-nav-title>
         <span ng-if="tabsPage == 'home'">home</span>
         <span ng-if="tabsPage == 'group'">group</span>
@@ -14,31 +14,8 @@
         <!--home-->
         <ion-tab icon-off="ion-home" icon-on="ion-home" href="#/mantou/index?tab=home">
             <ion-content has-header="true" has-footer="false" padding="true" class="tabs-content">
-            <div class="list card">
-                <div class="item item-divider">Recent Updates</div>
-                <div class="item item-body">
-                    <div>
-                        There is a fire in <b>sector 314</b>
-                    </div>
-                </div>
-            </div>
-            <div class="list card">
-                <div class="item item-divider">Health</div>
-                <div class="item item-body">
-                    <div>
-                        You ate an apple today!
-                    </div>
-                </div>
-            </div>
-            <div class="list card">
-                <div class="item item-divider">Upcoming</div>
-                <div class="item item-body">
-                    <div>
-                        You have <b>295</b> meetings on your calendar tomorrow.
-                    </div>
-                </div>
-            </div>
-            <a href="#/mantou/creatgroup">creatgroup</a>
+                home
+                <a href="#/mantou/creatgroup">creatgroup</a>
             </ion-content>
         </ion-tab>
         <!--group-->

@@ -1,9 +1,21 @@
 <ion-view title="新建群组">
     <ion-content has-header="true" padding="true">
-
-        <h2>Great</h2>
-        <p>Now click the back button.</p>
-        <p>Why doesn't the view return to tab 2?</p>
-
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">名称</span>
+                <input type="text" ng-model="groupname">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">组长</span>
+                <input type="text" disabled value="x" ng-model="groupManager">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">简介</span>
+                <textarea ng-model="groupinfo"></textarea>
+            </label>
+        </div>
+        <button class="button button-balanced" ng-click="creatGroup(groupname,groupManager,groupinfo)">
+            创建群组
+        </button>
     </ion-content>
 </ion-view>
