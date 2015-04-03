@@ -1,4 +1,4 @@
-angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state,$ionicPopup) {
+angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state,$ionicPopup,$ionicViewService) {
     console.log(AuthenticationService.isLogged)
     // 注册
     $scope.SignIn = function SignIn(username, password) {
@@ -24,11 +24,16 @@ angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $wi
                 if(data.status == 200){
                     AuthenticationService.isLogged = true;
                     $window.sessionStorage.token = data.token;
-                    console.log($window.sessionStorage.token)
+                    console.log($window.sessionStorage.token);
+                    $ionicViewService.nextViewOptions({
+                        disableAnimate: true,
+                        disableBack: true,
+                        historyRoot: true
+                    });
                     $state.go("index");
                 }else{
                     $ionicPopup.alert({
-                        title: '登陆'
+                        title: '登陆失败'
                     });
                 }
             }).error(function(status, data) {

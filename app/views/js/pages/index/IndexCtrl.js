@@ -1,16 +1,74 @@
-angular.module('mt_h5').controller('IndexCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state,$ionicActionSheet) {
-    $scope.logout = function logout() {
-        console.log(AuthenticationService.isLogged)
-        if (AuthenticationService.isLogged) {
-            AuthenticationService.isLogged = false;
-            delete $window.sessionStorage.token;
-            $state.go("welcome");
+angular.module('mt_h5').controller('IndexCtrl',function(
+    $scope,
+    $location,
+    $window,
+    UserService,
+    AuthenticationService,
+    $http,
+    $state,
+    $ionicActionSheet,
+    $ionicHistory,
+    $ionicTabsDelegate,
+    $timeout
+)
+{
+    console.log('ctrl')
+    var locationChangeInit = function(){
+        var locationObj = $location.search();
+        //console.log(locationObj.tab)
+        switch(locationObj.tab){
+            case 'home':
+                //console.log(1);
+                $scope.tabsPage = 'home';
+                $scope.ifShowMoreGroup = false;
+                $ionicTabsDelegate.select(0);
+                break;
+            case 'group':
+                //console.log(2);
+                $scope.tabsPage = 'group';
+                $scope.ifShowMoreGroup = true;
+                $ionicTabsDelegate.select(1);
+                break;
+            case 'find':
+                //console.log(3);
+                $scope.tabsPage = 'find';
+                $scope.ifShowMoreGroup = false;
+                $ionicTabsDelegate.select(2);
+                break;
+            case 'message':
+                //console.log(4);
+                $scope.tabsPage = 'message';
+                $scope.ifShowMoreGroup = false;
+                $ionicTabsDelegate.select(3);
+                break;
+            case 'user':
+                //console.log(5);
+                $scope.tabsPage = 'user';
+                $scope.ifShowMoreGroup = false;
+                $ionicTabsDelegate.select(4);
+                break;
+            default:
+                //console.log(1);
+                $scope.tabsPage = 'home';
+                $scope.ifShowMoreGroup = false;
+                $ionicTabsDelegate.select(0);
+                break;
         }
     };
+    $timeout(function(){
+        locationChangeInit();
+    },1);
+    $scope.$on('$locationChangeSuccess', function() {
+        if(window.location.href.indexOf('/mantou/index')>-1){
+            console.log('changeSuccess')
+            locationChangeInit();
+        }
+    });
 
+    // group page
     $scope.showMoreGroup = function(){
         // Show the action sheet
-        var hideSheet = $ionicActionSheet.show({
+        var actionShowMoreGroup = $ionicActionSheet.show({
             buttons: [
                 { text: '关注新群组' },
                 { text: '新建群组' }
@@ -22,7 +80,8 @@ angular.module('mt_h5').controller('IndexCtrl',function($scope, $location, $wind
             buttonClicked: function(index) {
                 switch(index){
                     case 0:
-                        $state.go('mantou.find');
+                        $window.location.href = '#/mantou/index?tab=find';
+                        actionShowMoreGroup();
                         break;
                     case 1:
                         $state.go('creatgroup');
@@ -31,4 +90,17 @@ angular.module('mt_h5').controller('IndexCtrl',function($scope, $location, $wind
             }
         });
     }
+
+    // user page
+    $scope.logout = function logout() {
+        if (AuthenticationService.isLogged) {
+            AuthenticationService.isLogged = false;
+            delete $window.sessionStorage.token;
+
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go("welcome");
+        }
+    };
 });

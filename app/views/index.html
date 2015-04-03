@@ -18,10 +18,10 @@
     <!-- inject:js -->
     <!-- endinject -->
 </head>
-<body animation="slide-left-right-ios7">
+<body>
 
-    <ion-nav-bar class="bar-balanced nav-title-slide-ios7">
-        <ion-nav-back-button class="button-icon">
+    <ion-nav-bar class="bar-balanced nav-title-slide-ios7" ng-controller="BackCtrl">
+        <ion-nav-back-button class="button-icon" ng-click="myGoBack()">
             <i class="ion-arrow-left-c"></i> Back
         </ion-nav-back-button>
     </ion-nav-bar>

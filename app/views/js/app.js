@@ -21,11 +21,9 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
         // Learn more here: https://github.com/angular-ui/ui-router
         $stateProvider
 
-            // setup an abstract state for the tabs directive
-
 
             .state('index', {
-                url: "/mantou",
+                url: "/mantou/index",
                 templateUrl: "views/js/pages/index/index.html",
                 controller: 'IndexCtrl'
             })
@@ -95,19 +93,19 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
             //})
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/mantou');
+        $urlRouterProvider.otherwise('/mantou/index');
 
 
     })
 
-    .run(function($rootScope, $urlRouter,$state,AuthenticationService,$window) {
-        $rootScope.$on('$locationChangeStart', function(evt) {
-            if(!AuthenticationService.isLogged){
-                evt.preventDefault();
-                $window.location.href="#/mantou/welcome";
-                $state.go("welcome");
-            }
-        });
-    });
+    //.run(function($rootScope, $urlRouter,$state,AuthenticationService,$window) {
+    //    $rootScope.$on('$locationChangeStart', function(evt) {
+    //        if(!AuthenticationService.isLogged){
+    //            evt.preventDefault();
+    //            $window.location.href="#/mantou/welcome";
+    //            $state.go("welcome");
+    //        }
+    //    });
+    //});
 
 
