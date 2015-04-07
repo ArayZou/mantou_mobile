@@ -18,6 +18,7 @@ userSchema = new mongoose.Schema({
     weibo: String,
     qq: String,
     sign: String,
+    Token: String,
     meta: {
         createAt : {
             type: Date,

@@ -89,9 +89,10 @@ angular.module('mt_h5').controller('IndexCtrl',function(
 
     // user page
     $scope.logout = function(){
-        if (AuthenticationService.isLogged) {
+        //if (AuthenticationService.isLogged) {
+            console.log(angular.fromJson($window.localStorage.USER))
             AuthenticationService.isLogged = false;
-            delete $window.sessionStorage.token;
+            delete $window.localStorage.USER;
 
             $ionicHistory.nextViewOptions({
                 disableAnimate: true,
@@ -99,6 +100,6 @@ angular.module('mt_h5').controller('IndexCtrl',function(
                 historyRoot: true
             });
             $state.go("welcome");
-        }
+        //}
     };
 });

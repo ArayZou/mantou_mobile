@@ -114,10 +114,10 @@ exports.groupmanage = function(req, res){
 }
 //创建群组接口
 exports.creatgroup = function(req, res) {
-    var id = req.session.user._id,
+    var userId = req.user.id,
         req_body = req.body;
-    if (id) {
-        User.findById(id, function(err, user) {
+    if (userId) {
+        User.findById(userId, function(err, user) {
             if (err) {
                 console.log(err);
             }
@@ -129,8 +129,9 @@ exports.creatgroup = function(req, res) {
                     }
 
                     if (group.length > 0) {
-                        res.send({
-                            message:'1'
+                        return res.send({
+                            status:400,
+                            error:"群组已存在"
                         });
                     } else {
                         var groupTotal = 0;
@@ -143,7 +144,7 @@ exports.creatgroup = function(req, res) {
                             group = new Group({
                                 name: req_body.groupName,
                                 groupId: groupTotal + 1,
-                                hoster: req.session.user._id,
+                                hoster: userId,
                                 intro: req_body.groupIntro,
                                 img:'/img/groupimg.png'
                             });
@@ -153,29 +154,9 @@ exports.creatgroup = function(req, res) {
                                     console.log(err);
                                 }
 
-                                user.followgroup.push(group._id);
-                                User.where({ _id: id }).update({$set: { followgroup: user.followgroup }},function(err){
-                                    if (err) {
-                                        console.log(err);
-                                    }
-                                    req.session.user = user;
-
-                                    // 关注群组缓存
-                                    req.session.group = [];
-
-                                    var followgroupId = [];
-                                    for(var i = 0;i<req.session.user.followgroup.length;i++){
-                                        followgroupId.push(req.session.user.followgroup[i]);
-                                    }
-                                    Group.find({_id:{$in:followgroupId}},function(err,group){
-                                        if(err){
-                                            console.log(err)
-                                        }
-                                        req.session.group = group;
-                                        res.send({
-                                            groupname:req_body.groupName
-                                        });
-                                    })
+                                return res.send({
+                                    status:200,
+                                    error:""
                                 });
                             });
                         });

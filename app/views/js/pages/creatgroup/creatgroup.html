@@ -3,7 +3,7 @@
         <div class="list">
             <label class="item item-input item-stacked-label">
                 <span class="input-label">名称</span>
-                <input type="text" ng-model="groupname">
+                <input type="text" ng-model="groupName">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">组长</span>
@@ -11,10 +11,10 @@
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">简介</span>
-                <textarea ng-model="groupinfo"></textarea>
+                <textarea ng-model="groupIntro"></textarea>
             </label>
         </div>
-        <button class="button button-balanced" ng-click="creatGroup(groupname,groupManager,groupinfo)">
+        <button class="button button-balanced" ng-click="creatGroup(groupName,groupIntro)">
             创建群组
         </button>
     </ion-content>

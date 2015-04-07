@@ -1,4 +1,4 @@
-angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state,$ionicPopup,$ionicViewService) {
+angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state,$ionicPopup,$ionicHistory) {
     console.log(AuthenticationService.isLogged)
     // 注册
     $scope.SignIn = function SignIn(username, password) {
@@ -9,7 +9,7 @@ angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $wi
                     name:username,
                     password:password
                 },
-                url: 'http://localhost:3000/api/userSign'
+                url: 'http://localhost:3000/api/user/Sign'
             }).success(function(data) {
                 console.log(data);
                 $scope.filterResultDate = data;
@@ -21,11 +21,15 @@ angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $wi
         if (username !== undefined && password !== undefined) {
 
             UserService.logIn(username, password).success(function(data) {
+                console.log(data)
                 if(data.status == 200){
                     AuthenticationService.isLogged = true;
-                    $window.sessionStorage.token = data.token;
-                    console.log($window.sessionStorage.token);
-                    $ionicViewService.nextViewOptions({
+                    var userStorage = {
+                        Value:data.user
+                    }
+                    $window.localStorage.setItem("USER", angular.toJson(userStorage));
+                    console.log($window.localStorage.USER);
+                    $ionicHistory.nextViewOptions({
                         disableAnimate: true,
                         disableBack: true,
                         historyRoot: true

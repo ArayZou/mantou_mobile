@@ -42,9 +42,18 @@ app.use(express.static(path.join(__dirname, '/')));
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/views/favicon.ico'));
 
-
 //router
 require('./router')(app);
+
+// invalid token Error
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+        res.send({
+            status:401,
+            error:"无权限"
+        });
+    }
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

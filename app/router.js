@@ -1,4 +1,5 @@
-var expressjwt = require('express-jwt');
+var expressjwt = require('express-jwt'),
+    secret = require('./config/secret'),
     path = require('path'),
     site = require('./controllers/site'),
     user = require('./controllers/user'),
@@ -29,6 +30,8 @@ module.exports = function(app) {
         next();
     });
 
-    app.post('/api/userSign',user.signup);
-    app.post('/api/userLogin',user.login);
+    app.post('/api/user/Sign',user.signup);
+    app.post('/api/user/Login',user.login);
+
+    app.post('/api/group/Creat', expressjwt({secret: secret.secretToken}) , group.creatgroup);
 };

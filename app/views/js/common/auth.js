@@ -3,7 +3,7 @@ angular.module('mt_h5').factory('AuthenticationService', function($window) {
         isLogged: false
     };
 
-    if ($window.sessionStorage.token) {
+    if ($window.localStorage.USER && $window.localStorage.USER.Token) {
         auth.isLogged = true;
     }
 
@@ -13,7 +13,7 @@ angular.module('mt_h5').factory('AuthenticationService', function($window) {
 angular.module('mt_h5').factory('UserService', function($http) {
     return {
         logIn: function(username, password) {
-            return $http.post('http://localhost:3000/api/userLogin', {username: username, password: password});
+            return $http.post('http://localhost:3000/api/user/Login', {username: username, password: password});
         },
 
         logOut: function() {
@@ -26,8 +26,8 @@ angular.module('mt_h5').factory('TokenInterceptor', function ($q, $window) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
-            if ($window.sessionStorage.token) {
-                config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+            if ($window.localStorage.USER && $window.localStorage.USER.Token) {
+                config.headers.Authorization = 'Bearer ' + $window.localStorage.USER.Token;
             }
             return config;
         },

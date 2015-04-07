@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     _ = require('underscore'),
+    secret = require('../config/secret'),
     User,
     Group;
 require('../models/user');
@@ -18,7 +19,7 @@ exports.signup = function(req, res) {
 
         if (user.length > 0) {
             return res.send({
-                status:401,
+                status:400,
                 error:"用户已存在"
             });
         } else {
@@ -69,11 +70,20 @@ exports.login = function(req, res) {
                 });
             }
 
-            var token = jwt.sign(user, 'mantoumobile', { expiresInMinutes: 60 });
-            return res.json({
-                status:200,
-                error:"",
-                token:token
+            var token = jwt.sign({id:user._id}, secret.secretToken, { expiresInMinutes: 60 });
+            user.Auth=token;
+            user = _.extend(user, {
+                Token: token
+            });
+            user.save(function(err, _user) {
+                if (err) {
+                    console.log(err);
+                }
+                return res.json({
+                    status:200,
+                    error:"",
+                    user:_user
+                });
             });
         });
     });
