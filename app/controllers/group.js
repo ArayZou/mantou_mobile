@@ -146,7 +146,7 @@ exports.creatgroup = function(req, res) {
                                 groupId: groupTotal + 1,
                                 hoster: userId,
                                 intro: req_body.groupIntro,
-                                img:'/img/groupimg.png'
+                                img:'/public/img/groupimg.png'
                             });
 
                             newGroup.save(function(err, group) {

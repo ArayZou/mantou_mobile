@@ -32,6 +32,8 @@ module.exports = function(app) {
 
     app.post('/api/user/Sign',user.signup);
     app.post('/api/user/Login',user.login);
+    app.post('/api/user/GetFollowGroups', expressjwt({secret: secret.secretToken}) , user.getfollowgroups);
 
     app.post('/api/group/Creat', expressjwt({secret: secret.secretToken}) , group.creatgroup);
+
 };

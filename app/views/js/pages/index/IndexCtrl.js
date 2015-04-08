@@ -27,6 +27,13 @@ angular.module('mt_h5').controller('IndexCtrl',function(
                 $scope.tabsPage = 'group';
                 $scope.ifShowMoreGroup = true;
                 $ionicTabsDelegate.select(1);
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost:3000/api/user/GetFollowGroups'
+                }).success(function(data) {
+                    console.log('group'+data);
+                    $scope.followGroups = data.group;
+                });
                 break;
             case 'find':
                 //console.log(3);

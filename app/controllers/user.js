@@ -84,7 +84,7 @@ exports.login = function(req, res) {
                     img:_user.img,
                     Token:_user.Token
                 }
-                return res.json({
+                return res.send({
                     status:200,
                     error:"",
                     user:userdata
@@ -164,14 +164,29 @@ exports.info = function(req, res) {
         });
     }
 };
-
+//用户关注群组列表
+exports.getfollowgroups = function(req, res) {
+    var userId = req.user.id;
+    if (userId) {
+        User.findOne({_id:userId}).populate({path:'followgroup'}).exec(function(err, user) {
+            if (err) {
+                console.log(err);
+            }
+            return res.send({
+                status:200,
+                error:"",
+                group:user.followgroup
+            });
+        });
+    }
+};
 //关注群组
 exports.followgroup = function(req, res) {
-    var id = req.session.user._id,
+    var userId = req.user.id,
         reqBody = req.body;
     var ifFollow = true;
-    if (id) {
-        User.findById(id, function(err, user) {
+    if (userId) {
+        User.findById(userId, function(err, user) {
             if (err) {
                 console.log(err);
             }

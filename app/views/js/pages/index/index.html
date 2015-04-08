@@ -1,7 +1,7 @@
 <ion-view title="" hide-back-button="true">
     <ion-nav-title>
         <span ng-if="tabsPage == 'home'">home</span>
-        <span ng-if="tabsPage == 'group'">group</span>
+        <span ng-if="tabsPage == 'group'">我关注的群组</span>
         <span ng-if="tabsPage == 'find'">find</span>
         <span ng-if="tabsPage == 'message'">message</span>
         <span ng-if="tabsPage == 'user'">user</span>
@@ -21,7 +21,12 @@
         <!--group-->
         <ion-tab icon-off="ion-grid" icon-on="ion-grid" href="#/mantou/index?tab=group">
             <ion-content has-header="true" has-footer="false" padding="true" class="tabs-content">
-                group
+                <div>
+                    <a href="" ng-repeat="group in followGroups">
+                        <img src="{{group.img}}" alt=""/>
+                        <span>{{group.name}}</span>
+                    </a>
+                </div>
             </ion-content>
         </ion-tab>
         <!--find-->

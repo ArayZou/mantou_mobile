@@ -6,7 +6,12 @@ angular.module('mt_h5').controller('CreatGroupCtrl',function(
     $state,
     MTCommonStorage
 ) {
+    if(MTCommonStorage.GetLocalStorage('USER')){
+        $scope.USER = MTCommonStorage.GetLocalStorage('USER');
+    }
+    // 创建群组
     $scope.creatGroup = function(groupName,groupIntro){
+
         $http({
             method: 'POST',
             data: {
