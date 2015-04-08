@@ -31,11 +31,9 @@ angular.module('mt_h5').controller('WelcomeCtrl',function(
         if (username !== undefined && password !== undefined) {
 
             UserService.logIn(username, password).success(function(data) {
-                console.log(data)
                 if(data.status == 200){
                     AuthenticationService.isLogged = true;
                     MTCommonStorage.SetLocalStorage('USER',data.user,'7d');
-                    console.log(MTCommonStorage.GetLocalStorage('USER'));
                     $ionicHistory.nextViewOptions({
                         disableAnimate: true,
                         disableBack: true,

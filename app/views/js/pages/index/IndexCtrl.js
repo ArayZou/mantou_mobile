@@ -10,8 +10,7 @@ angular.module('mt_h5').controller('IndexCtrl',function(
     $ionicHistory,
     $ionicTabsDelegate,
     $timeout
-)
-{
+) {
     console.log('ctrl')
     var locationChangeInit = function(){
         var locationObj = $location.search();
