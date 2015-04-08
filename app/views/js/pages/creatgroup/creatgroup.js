@@ -1,4 +1,11 @@
-angular.module('mt_h5').controller('CreatGroupCtrl',function($scope,$http,$ionicHistory,AuthenticationService,$state) {
+angular.module('mt_h5').controller('CreatGroupCtrl',function(
+    $scope,
+    $http,
+    $ionicHistory,
+    AuthenticationService,
+    $state,
+    MTCommonStorage
+) {
     $scope.creatGroup = function(groupName,groupIntro){
         $http({
             method: 'POST',

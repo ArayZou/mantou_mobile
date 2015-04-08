@@ -1,5 +1,15 @@
-angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $window, UserService, AuthenticationService,$http,$state,$ionicPopup,$ionicHistory) {
-    console.log(AuthenticationService.isLogged)
+angular.module('mt_h5').controller('WelcomeCtrl',function(
+    $scope,
+    $location,
+    $window,
+    $http,
+    $state,
+    $ionicPopup,
+    $ionicHistory,
+    MTCommonStorage,
+    UserService,
+    AuthenticationService) {
+
     // 注册
     $scope.SignIn = function SignIn(username, password) {
         if(username && password){
@@ -24,11 +34,8 @@ angular.module('mt_h5').controller('WelcomeCtrl',function($scope, $location, $wi
                 console.log(data)
                 if(data.status == 200){
                     AuthenticationService.isLogged = true;
-                    var userStorage = {
-                        Value:data.user
-                    }
-                    $window.localStorage.setItem("USER", angular.toJson(userStorage));
-                    console.log($window.localStorage.USER);
+                    MTCommonStorage.SetLocalStorage('USER',data.user,'7d');
+                    console.log(MTCommonStorage.GetLocalStorage('USER'));
                     $ionicHistory.nextViewOptions({
                         disableAnimate: true,
                         disableBack: true,

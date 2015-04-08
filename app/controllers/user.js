@@ -79,10 +79,15 @@ exports.login = function(req, res) {
                 if (err) {
                     console.log(err);
                 }
+                var userdata = {
+                    name:_user.name,
+                    img:_user.img,
+                    Token:_user.Token
+                }
                 return res.json({
                     status:200,
                     error:"",
-                    user:_user
+                    user:userdata
                 });
             });
         });

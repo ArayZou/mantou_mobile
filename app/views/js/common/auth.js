@@ -1,9 +1,10 @@
-angular.module('mt_h5').factory('AuthenticationService', function($window) {
+angular.module('mt_h5').factory('AuthenticationService', function($window,MTCommonStorage) {
     var auth = {
         isLogged: false
     };
 
-    if ($window.localStorage.USER && $window.localStorage.USER.Token) {
+    var userStorage = MTCommonStorage.GetLocalStorage('USER');
+    if (userStorage && userStorage.Token) {
         auth.isLogged = true;
     }
 
@@ -22,12 +23,13 @@ angular.module('mt_h5').factory('UserService', function($http) {
     }
 });
 
-angular.module('mt_h5').factory('TokenInterceptor', function ($q, $window) {
+angular.module('mt_h5').factory('TokenInterceptor', function ($q, $window,MTCommonStorage) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
-            if ($window.localStorage.USER && $window.localStorage.USER.Token) {
-                config.headers.Authorization = 'Bearer ' + $window.localStorage.USER.Token;
+            var userStorage = MTCommonStorage.GetLocalStorage('USER');
+            if (userStorage && userStorage.Token) {
+                config.headers.Authorization = 'Bearer ' + userStorage.Token;
             }
             return config;
         },

@@ -141,7 +141,7 @@ exports.creatgroup = function(req, res) {
                             }
                             groupTotal = group.length;
 
-                            group = new Group({
+                            var newGroup = new Group({
                                 name: req_body.groupName,
                                 groupId: groupTotal + 1,
                                 hoster: userId,
@@ -149,14 +149,19 @@ exports.creatgroup = function(req, res) {
                                 img:'/img/groupimg.png'
                             });
 
-                            group.save(function(err, group) {
+                            newGroup.save(function(err, group) {
                                 if (err) {
                                     console.log(err);
                                 }
-
-                                return res.send({
-                                    status:200,
-                                    error:""
+                                user.followgroup.push(group._id);
+                                User.where({ _id: userId }).update({$set: { followgroup: user.followgroup }},function(err){
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                    return res.send({
+                                        status:200,
+                                        error:""
+                                    });
                                 });
                             });
                         });

@@ -90,7 +90,6 @@ angular.module('mt_h5').controller('IndexCtrl',function(
     // user page
     $scope.logout = function(){
         //if (AuthenticationService.isLogged) {
-            console.log(angular.fromJson($window.localStorage.USER))
             AuthenticationService.isLogged = false;
             delete $window.localStorage.USER;
 
