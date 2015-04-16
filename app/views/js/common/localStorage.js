@@ -40,14 +40,9 @@ angular.module('mt_h5').factory('MTCommonStorage', function($window) {
             if(thisStorage){
                 var date = new Date();
                 var deadTime = new Date(thisStorage.DeadTime);
-                //console.log(date)
-                //console.log(deadTime)
-                //console.log(date<deadTime)
                 if(date<deadTime){
-                    //console.log('return'+storage);
                     return thisStorage.Value;
                 }else{
-                    //console.log('delete'+storage);
                     $window.localStorage.removeItem(storage);
                 }
             }
