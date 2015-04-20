@@ -2,7 +2,22 @@
     <ion-nav-title>
         {{thisGroup.name}}
     </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="ion-ios-more button nav_right_more button-stable" ng-click="showMoreGroup()"></button>
+    </ion-nav-buttons>
     <ion-content class="padding">
         {{thisGroup.name}}
+        <a href="javascript:;" ng-click="openPopover($event)">写文章</a>
     </ion-content>
 </ion-view>
+
+<script id="write-popover.html" type="text/ng-template">
+    <ion-popover-view>
+        <ion-nav-title>
+            写文章
+        </ion-nav-title>
+        <ion-content>
+            Hello!
+        </ion-content>
+    </ion-popover-view>
+</script>

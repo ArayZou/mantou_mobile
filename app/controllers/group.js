@@ -73,11 +73,11 @@ exports.creatgroup = function(req, res) {
 };
 //群组首页
 exports.groupindex = function(req, res) {
-    var groupId = req.body.groupId;
-    console.log(groupId)
-    var postArray = [];
-    var person = req.user;
-    var ifHoster = false;
+    var groupId = req.body.groupId,
+        postArray = [],
+        person = req.user,
+        ifHoster = false,
+        ifFollower = false;
     Group.findOne({groupId:groupId}).populate({path:'hoster'}).exec(function(err, thisgroup) {
         if (err) {
             console.log(err);
@@ -86,6 +86,19 @@ exports.groupindex = function(req, res) {
             if(thisgroup.hoster._id == person.id){
                 ifHoster = true;
             }
+            User.findById(person.id, function(err, user) {
+                if (err) {
+                    console.log(err);
+                }
+                if (user) {
+                    for(var i=0;i<user.followgroup.length;i++){
+                        if(String(user.followgroup[i]) === String(thisgroup._id)){
+                            ifFollower = true;
+                            break;
+                        }
+                    }
+                }
+            });
             Post.find({group:thisgroup._id}).sort({'_id':-1}).populate({path:'floor.user group'}).exec(function (err, post) {
                 if (err) {
                     console.log(err);
@@ -101,7 +114,8 @@ exports.groupindex = function(req, res) {
                         hoster:thisgroup.hoster.name
                     },
                     postArray: postArray,
-                    ifHoster:ifHoster
+                    ifHoster:ifHoster,
+                    ifFollower: ifFollower
                 });
             })
         }

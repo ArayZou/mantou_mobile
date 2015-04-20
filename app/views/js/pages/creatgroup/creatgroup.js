@@ -31,11 +31,6 @@ angular.module('mt_h5').controller('CreatGroupCtrl',function(
                 });
                 $state.go("welcome");
             }else if(data.status === 200){
-                //$ionicHistory.nextViewOptions({
-                //    disableAnimate: true,
-                //    disableBack: true,
-                //    historyRoot: true
-                //});
                 $state.go("group", { groupid: data.group.groupId });
             }
         }).error(function(data){
