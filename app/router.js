@@ -35,5 +35,6 @@ module.exports = function(app) {
     app.post('/api/user/GetFollowGroups', expressjwt({secret: secret.secretToken}) , user.getfollowgroups);
 
     app.post('/api/group/Creat', expressjwt({secret: secret.secretToken}) , group.creatgroup);
+    app.post('/api/group/GetGroupIndex', expressjwt({secret: secret.secretToken}) ,group.groupindex);
 
 };

@@ -40,6 +40,11 @@ angular.module('mt_h5', ['ionic', 'pasvaz.bindonce'])
                 controller: 'WelcomeCtrl'
             })
 
+            .state('group', {
+                url: '/mantou/group/:groupid',
+                templateUrl: 'views/js/pages/group/group.html',
+                controller: 'GroupCtrl'
+            })
 
             // Each tab has its own nav history stack:
 

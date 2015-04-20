@@ -30,7 +30,7 @@ angular.module('mt_h5').controller('IndexCtrl',function(
                     method: 'POST',
                     url: 'http://localhost:3000/api/user/GetFollowGroups'
                 }).success(function(data) {
-                    console.log('group'+data);
+                    console.log(data);
                     $scope.followGroups = data.group;
                 });
                 break;

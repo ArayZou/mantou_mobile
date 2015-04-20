@@ -94,11 +94,6 @@ exports.login = function(req, res) {
     });
 };
 
-//登出
-exports.logout = function(req, res) {
-    res.redirect('/');
-};
-
 //修改密码
 exports.repwd = function(req, res) {
     var id = req.session.user._id;

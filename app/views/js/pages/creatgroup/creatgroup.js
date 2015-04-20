@@ -21,7 +21,7 @@ angular.module('mt_h5').controller('CreatGroupCtrl',function(
             url: 'http://localhost:3000/api/group/Creat'
         }).success(function(data) {
             console.log(data);
-            if(data.status == 401){
+            if(data.status === 401){
                 AuthenticationService.isLogged = false;
 
                 $ionicHistory.nextViewOptions({
@@ -30,6 +30,13 @@ angular.module('mt_h5').controller('CreatGroupCtrl',function(
                     historyRoot: true
                 });
                 $state.go("welcome");
+            }else if(data.status === 200){
+                //$ionicHistory.nextViewOptions({
+                //    disableAnimate: true,
+                //    disableBack: true,
+                //    historyRoot: true
+                //});
+                $state.go("group", { groupid: data.group.groupId });
             }
         }).error(function(data){
             console.log('error')

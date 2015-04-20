@@ -9,26 +9,82 @@ require('../models/group');
 User = mongoose.model('User');
 Post = mongoose.model('Post');
 Group = mongoose.model('Group');
+//创建群组接口
+exports.creatgroup = function(req, res) {
+    var userId = req.user.id,
+        req_body = req.body;
+    if (userId) {
+        User.findById(userId, function(err, user) {
+            if (err) {
+                console.log(err);
+            }
+            if (user) {
+
+                Group.find({name: req_body.groupName}, function(err, group) {
+                    if (err) {
+                        console.log(err);
+                    }
+
+                    if (group.length > 0) {
+                        return res.send({
+                            status:400,
+                            error:"群组已存在"
+                        });
+                    } else {
+                        var groupTotal = 0;
+                        Group.find(function(err,group){
+                            if (err) {
+                                console.log(err);
+                            }
+                            groupTotal = group.length;
+
+                            var newGroup = new Group({
+                                name: req_body.groupName,
+                                groupId: groupTotal + 1,
+                                hoster: userId,
+                                intro: req_body.groupIntro,
+                                img:'/public/img/groupimg.png'
+                            });
+
+                            newGroup.save(function(err, group) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                user.followgroup.push(group._id);
+                                User.where({ _id: userId }).update({$set: { followgroup: user.followgroup }},function(err){
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                    return res.send({
+                                        status:200,
+                                        error:"",
+                                        group:{
+                                            groupId:group.groupId
+                                        }
+                                    });
+                                });
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    }
+};
 //群组首页
-exports.grouphome = function(req, res) {
-    var groupName = req.params.groupname;
+exports.groupindex = function(req, res) {
+    var groupId = req.body.groupId;
+    console.log(groupId)
     var postArray = [];
-    var person = req.session.user;
-    var ifUserFollow = false;
+    var person = req.user;
     var ifHoster = false;
-    Group.findOne({name:groupName}).populate({path:'hoster'}).exec(function(err, thisgroup) {
+    Group.findOne({groupId:groupId}).populate({path:'hoster'}).exec(function(err, thisgroup) {
         if (err) {
             console.log(err);
         }
         if (thisgroup){
-            if(thisgroup.hoster._id == person._id){
+            if(thisgroup.hoster._id == person.id){
                 ifHoster = true;
-            }
-            for(var i = 0;i<person.followgroup.length;i++){
-                if(person.followgroup[i] == thisgroup._id){
-                    ifUserFollow = true;
-                    break;
-                }
             }
             Post.find({group:thisgroup._id}).sort({'_id':-1}).populate({path:'floor.user group'}).exec(function (err, post) {
                 if (err) {
@@ -37,13 +93,14 @@ exports.grouphome = function(req, res) {
 
                 postArray = post;
 
-                res.render('group', {
-                    js:[{js:'group'}],
-                    title: 'group-'+groupName,
-                    groupname: groupName,
-                    thisGroup:thisgroup,
+                return res.send({
+                    status:200,
+                    error:"",
+                    group:{
+                        name:thisgroup.name,
+                        hoster:thisgroup.hoster.name
+                    },
                     postArray: postArray,
-                    ifUserFollow:ifUserFollow,
                     ifHoster:ifHoster
                 });
             })
@@ -111,65 +168,6 @@ exports.groupmanage = function(req, res){
             }
         }
     });
-}
-//创建群组接口
-exports.creatgroup = function(req, res) {
-    var userId = req.user.id,
-        req_body = req.body;
-    if (userId) {
-        User.findById(userId, function(err, user) {
-            if (err) {
-                console.log(err);
-            }
-            if (user) {
-
-                Group.find({name: req_body.groupName}, function(err, group) {
-                    if (err) {
-                        console.log(err);
-                    }
-
-                    if (group.length > 0) {
-                        return res.send({
-                            status:400,
-                            error:"群组已存在"
-                        });
-                    } else {
-                        var groupTotal = 0;
-                        Group.find(function(err,group){
-                            if (err) {
-                                console.log(err);
-                            }
-                            groupTotal = group.length;
-
-                            var newGroup = new Group({
-                                name: req_body.groupName,
-                                groupId: groupTotal + 1,
-                                hoster: userId,
-                                intro: req_body.groupIntro,
-                                img:'/public/img/groupimg.png'
-                            });
-
-                            newGroup.save(function(err, group) {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                user.followgroup.push(group._id);
-                                User.where({ _id: userId }).update({$set: { followgroup: user.followgroup }},function(err){
-                                    if (err) {
-                                        console.log(err);
-                                    }
-                                    return res.send({
-                                        status:200,
-                                        error:""
-                                    });
-                                });
-                            });
-                        });
-                    }
-                });
-            }
-        });
-    }
 }
 //群组资料设置接口
 exports.editgroupintro = function(req, res) {

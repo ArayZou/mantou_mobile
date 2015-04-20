@@ -1,8 +1,39 @@
+body {
+  font: 400 14px/1.5 Arial, "Lucida Grande", Verdana, "Microsoft YaHei"; }
+
+a {
+  color: #06c;
+  text-decoration: none; }
+
 .tabs-content {
   top: 44px; }
 
 .bar .nav_right_more {
   font-size: 32px; }
+
+.cf:after {
+  display: table;
+  line-height: 0;
+  content: "";
+  clear: both; }
+
+.grouplist {
+  widows: 100%; }
+  .grouplist .groupblock {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+    text-align: center;
+    margin: 0 0 10px; }
+    .grouplist .groupblock img {
+      display: block;
+      width: 100%;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px; }
+    .grouplist .groupblock span {
+      height: 20px;
+      line-height: 20px; }
 
 body {
   background: #fff; }
